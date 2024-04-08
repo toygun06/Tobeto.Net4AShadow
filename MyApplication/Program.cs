@@ -12,4 +12,6 @@ productService.AddProductWithLogging(product);
 BaseProductService productService2 = new ProductServiceMySql();
 productService2.AddProductWithLogging(product);
 
+  
+
 
