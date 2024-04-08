@@ -13,7 +13,5 @@ namespace Business.Abstracts
         void Add(Product product);
         void Update(Product product);
         void Delete(Product product);
-
-
     }
 }

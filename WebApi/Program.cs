@@ -11,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IProductService, ProductManager>();
+builder.Services.AddSingleton<ICategoryService, CategoryManager>();
 
 //Singleton-Scoped-Transien -> Lifetime
 //Singleton => Üretilen ba??ml?l?k uygulama aç?k oldu?u sürece tek bir kere newlenir.
