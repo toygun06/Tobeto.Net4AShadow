@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Business.Abstracts;
+using Business.Concretes;
+using Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography.X509Certificates;
 
 namespace WebApi.Controllers
 {
@@ -7,30 +11,23 @@ namespace WebApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        IProductService productService;
+
+        public ProductsController(IProductService productService)
+        {
+            this.productService = productService;
+        }
+
         [HttpGet]
-
-        public string Hello([FromQuery] string name, [FromQuery] string surname)
+        public List<Product> GetAll()
         {
-            var language = Request.Headers.AcceptLanguage;
-            if (language =="en")
-                return "Hello " + name + " " + surname;
-            return "Merhaba " + name + " " + surname;
+            return productService.GetAll();
         }
-        //Route Parameters, Query String => Get istekleri popüler
-        //Body => POST, PUT
-        //Headers => Yan bilgileri içerir. ()
 
-        [HttpGet("{username}")]
-
-        public string Tobeto([FromRoute]string username)
-        {
-            return "Tobeto Kullanıcı Adınız: " + username;
-        }
         [HttpPost]
-
-        public Product GoodBye([FromBody]Product product)
+        public void Add([FromBody] Product product)
         {
-            return product;
+            productService.Add(product);
         }
     }
 }
