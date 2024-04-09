@@ -1,5 +1,4 @@
-﻿using Business.Abstracts;
-using DataAccess.Abstracts;
+﻿using DataAccess.Abstracts;
 using Entities;
 using System;
 using System.Collections.Generic;
@@ -7,22 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Concretes
+namespace DataAccess.Concretes.InMemory
 {
-    public class ProductManager : IProductService
+    public class InMemoryProductRepository : IProductRepository
     {
-        IProductRepository _productRepository;
+        List<Product> products;
 
-        public ProductManager(IProductRepository productRepository)
+        public InMemoryProductRepository()
         {
-            _productRepository = productRepository;
+            products = new List<Product>();
         }
         public void Add(Product product)
         {
-            if (product.unitPrice < 0)
-                throw new Exception("Ürün fiyatı 0'dan küçük olamaz.");
-
-            _productRepository.Add(product);
+            products.Add(product);
         }
 
         public void Delete(Product product)
@@ -32,7 +28,7 @@ namespace Business.Concretes
 
         public List<Product> GetAll()
         {
-            return _productRepository.GetAll();
+            return products;
         }
 
         public Product GetById(int id)

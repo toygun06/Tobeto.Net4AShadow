@@ -32,6 +32,11 @@ namespace Business.Concretes
             return this.categories;
         }
 
+        public Category GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Category category)
         {
             throw new NotImplementedException();
