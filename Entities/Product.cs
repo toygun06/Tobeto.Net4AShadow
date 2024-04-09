@@ -2,20 +2,22 @@
 {
     public class Product
     {
-        public Product(int id, string name, int unitPrice)
+        public Product(int id, string name, int unitPrice, int stock)
         {
-            this.id = id;
+            Id = id;
             Name = name;
-            this.unitPrice = unitPrice;
+            UnitPrice = unitPrice;
+            Stock = stock;
         }
 
         public Product()
         {
         }
 
-        public int id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public int unitPrice { get; set; }
+        public int UnitPrice { get; set; }
+        public int Stock {  get; set; }
 
     }
 }

@@ -1,6 +1,7 @@
 using Business.Abstracts;
 using Business.Concretes;
 using DataAccess.Abstracts;
+using DataAccess.Concretes.EntityFramework;
 using DataAccess.Concretes.InMemory;
 using Entities;
 
@@ -15,6 +16,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IProductService, ProductManager>();
 builder.Services.AddSingleton<ICategoryService, CategoryManager>();
 builder.Services.AddSingleton<IProductRepository, InMemoryProductRepository>();
+builder.Services.AddDbContext<BaseDbContext>();
 
 //Singleton-Scoped-Transien -> Lifetime
 //Singleton => Üretilen ba??ml?l?k uygulama aç?k oldu?u sürece tek bir kere newlenir.

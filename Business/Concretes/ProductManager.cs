@@ -19,7 +19,7 @@ namespace Business.Concretes
         }
         public void Add(Product product)
         {
-            if (product.unitPrice < 0)
+            if (product.UnitPrice < 0)
                 throw new Exception("Ürün fiyatı 0'dan küçük olamaz.");
 
             _productRepository.Add(product);

@@ -20,12 +20,6 @@ namespace DataAccess.Concretes.InMemory
         {
             products.Add(product);
         }
-
-        public void Delete(Product product)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Product> GetAll()
         {
             return products;
@@ -33,12 +27,20 @@ namespace DataAccess.Concretes.InMemory
 
         public Product GetById(int id)
         {
-            throw new NotImplementedException();
+            //LINQ => SQL'in C# hali
+            //Bütün product'ları gez. id'si gelen id değerine eşit olanları filtrele.
+            Product? product = products.FirstOrDefault(p => p.Id == id);
+            return product;
+        }
+
+        public void Delete(Product product)
+        {
+            products.Remove(product);
         }
 
         public void Update(Product product)
         {
-            throw new NotImplementedException();
+            //InMemory olduğundan atlandı.
         }
     }
 }
