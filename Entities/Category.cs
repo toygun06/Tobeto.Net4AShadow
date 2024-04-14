@@ -12,6 +12,7 @@ namespace Entities
         {
             Id = id;
             Name = name;
+
         }
 
         public Category()
