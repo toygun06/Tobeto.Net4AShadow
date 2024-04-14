@@ -8,9 +8,9 @@ namespace Entities
 {
     public class Category
     {
-        public Category(int ıd, string name)
+        public Category(int id, string name)
         {
-            Id = ıd;
+            Id = id;
             Name = name;
         }
 
