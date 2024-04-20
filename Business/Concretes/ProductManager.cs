@@ -19,9 +19,15 @@ namespace Business.Concretes
         }
         public void Add(Product product)
         {
+            //ürün ismini kontrol et
+            //fiyatını kontrol et
             if (product.UnitPrice < 0)
                 throw new Exception("Ürün fiyatı 0'dan küçük olamaz.");
+            //aynı isimde 2. ürün eklenemez
 
+            Product productWithSameName = _productRepository.Get(p=>p.Name == product.Name);
+            if (productWithSameName == null)
+                throw new Exception("Aynı isimde 2. ürün eklenemez.");
             _productRepository.Add(product);
         }
 

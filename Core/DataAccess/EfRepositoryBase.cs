@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,15 +31,23 @@ namespace Core.DataAccess
             Context.SaveChanges();
         }
 
-        public List<TEntity> GetAll()
+        public TEntity? Get(Expression<Func<TEntity, bool>> predicate)
         {
-            return Context.Set<TEntity>().ToList();
+            IQueryable<TEntity> data = Context.Set<TEntity>();
+
+            return data.FirstOrDefault(predicate);
         }
 
-        public TEntity? GetById(int id)
+        public List<TEntity> GetList(Expression<Func<TEntity, bool>>? predicate)
         {
-            return Context.Set<TEntity>().FirstOrDefault(i => i.Id == id);
+            IQueryable<TEntity> data = Context.Set<TEntity>();
+            if(predicate != null)
+                data = data.Where(predicate);
+
+            return data.ToList();
         }
+
+        
 
         public void Update(TEntity entity)
         {
