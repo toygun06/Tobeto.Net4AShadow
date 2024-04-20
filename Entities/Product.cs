@@ -1,6 +1,8 @@
-﻿namespace Entities
+﻿using Core.DataAccess;
+
+namespace Entities
 {
-    public class Product
+    public class Product : Entity
     {
 
 
@@ -8,16 +10,15 @@
         {
         }
 
-        public Product(int ıd, string name, int unitPrice, int stock, int categoryId)
+        public Product(int id,string name, int unitPrice, int stock, int categoryId)
         {
-            Id = ıd;
+            Id = id;
             Name = name;
             UnitPrice = unitPrice;
             Stock = stock;
             CategoryId = categoryId;
         }
 
-        public int Id { get; set; }
         public string Name { get; set; }
         public int UnitPrice { get; set; }
         public int Stock {  get; set; }

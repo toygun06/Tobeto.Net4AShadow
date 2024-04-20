@@ -1,4 +1,5 @@
-﻿using DataAccess.Abstracts;
+﻿using Core.DataAccess;
+using DataAccess.Abstracts;
 using Entities;
 using System;
 using System.Collections.Generic;
@@ -8,49 +9,11 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concretes.EntityFramework
 {
-    public class EfCategoryRepository : ICategoryRepository
+    public class EfCategoryRepository : EfRepositoryBase<Category, BaseDbContext>, ICategoryRepository
     {
-        public void Add(Category category)
+        public EfCategoryRepository(BaseDbContext context) : base(context)
         {
-            using (BaseDbContext context = new())
-            {
-                context.Categories.Add(category);
-                context.SaveChanges();
-            }
-        }
 
-        public void Delete(Category category)
-        {
-            using (BaseDbContext context = new())
-            { 
-                context.Categories.Remove(category);
-                context.SaveChanges();
-            }
-        }
-
-        public List<Category> GetAll()
-        {
-            using (BaseDbContext context = new())
-            {
-                return context.Categories.ToList();
-            }
-        }
-
-        public Category GetById(int id)
-        {
-            using (BaseDbContext context = new())
-            {
-                return context.Categories.FirstOrDefault(c => c.Id == id);
-            }
-        }
-
-        public void Update(Category category)
-        {
-            using (BaseDbContext context = new())
-            {
-                context.Categories.Update(category);
-                context.SaveChanges();
-            }
-        }
+        } 
     }
 }
