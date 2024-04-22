@@ -10,9 +10,9 @@ namespace Business.Abstracts
     public interface IProductService
     {
         Product GetById(int id);
-        List<Product> GetAll();
-        void Add(Product product);
-        void Update(Product product);
-        void Delete(Product product);
+        Task<List<Product>> GetAll();
+        Task Add(Product product);
+        Task Update(Product product);
+        Task Delete(Product product);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Business.Abstracts;
+using Core.CrossCuttingConcerns.Exceptions.Types;
 using DataAccess.Abstracts;
 using Entities;
 using System;
@@ -17,18 +18,18 @@ namespace Business.Concretes
         {
             _productRepository = productRepository;
         }
-        public void Add(Product product)
+        public async Task Add(Product product)
         {
             //ürün ismini kontrol et
             //fiyatını kontrol et
             if (product.UnitPrice < 0)
-                throw new Exception("Ürün fiyatı 0'dan küçük olamaz.");
+                throw new BusinessException("Ürün fiyatı 0'dan küçük olamaz.");
             //aynı isimde 2. ürün eklenemez
 
-            Product productWithSameName = _productRepository.Get(p=>p.Name == product.Name);
+            Product productWithSameName = await _productRepository.GetAsync(p=>p.Name == product.Name);
             if (productWithSameName == null)
-                throw new Exception("Aynı isimde 2. ürün eklenemez.");
-            _productRepository.Add(product);
+                throw new System.Exception("Aynı isimde 2. ürün eklenemez.");
+            await _productRepository.AddAsync(product);
         }
 
         public void Delete(Product product)
@@ -36,9 +37,9 @@ namespace Business.Concretes
             throw new NotImplementedException();
         }
 
-        public List<Product> GetAll()
+        public async Task<List<Product>> GetAll()
         {
-            return _productRepository.GetAll();
+            return await _productRepository.GetListAsync();
         }
 
         public Product GetById(int id)
