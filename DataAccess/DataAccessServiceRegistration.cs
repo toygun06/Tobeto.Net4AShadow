@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class DataAccessServiceRegistration
+    public static class DataAccessServiceRegistration
     {
-        public static IServiceCollection AddDataAccessServices(this IServiceCollection services)
+        public static IServiceCollection AddDataAccessService(this IServiceCollection services)
         {
             services.AddScoped<IProductRepository, EfProductRepository>();
             services.AddDbContext<BaseDbContext>();

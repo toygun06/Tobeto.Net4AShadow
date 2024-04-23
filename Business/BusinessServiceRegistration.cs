@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Business
 {
-    public class BusinessServiceRegistration
+    public static class BusinessServiceRegistration
     {
         public static IServiceCollection AddBusinessService(this IServiceCollection services)
         {
