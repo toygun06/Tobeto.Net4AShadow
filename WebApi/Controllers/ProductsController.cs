@@ -1,5 +1,6 @@
 ﻿using Business.Abstracts;
 using Business.Concretes;
+using Business.Dtos.Product;
 using Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,17 +20,17 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Product>> GetAll()
+        public async Task<List<ProductForListingDto>> GetAll()
         {
             return await _productService.GetAll();
         }
 
         [HttpPost]
-        public async void Task Add([FromBody] Product product)
+        public async void Add([FromBody] ProductForAddDto product)
         {
             await _productService.Add(product);
         }
-
+        /*
         [HttpGet("Senkron")]
         public string Sync()
         {
@@ -43,5 +44,6 @@ namespace WebApi.Controllers
             await Task.Delay(5000);
             return "Async endpoint";
         }
+        */
     }
 }

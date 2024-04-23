@@ -10,7 +10,7 @@ namespace Entities
         {
         }
 
-        public Product(int id,string name, int unitPrice, int stock, int categoryId)
+        public Product(int id,string name, double unitPrice, int stock, int categoryId)
         {
             Id = id;
             Name = name;
@@ -20,7 +20,7 @@ namespace Entities
         }
 
         public string Name { get; set; }
-        public int UnitPrice { get; set; }
+        public double UnitPrice { get; set; }
         public int Stock {  get; set; }
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }

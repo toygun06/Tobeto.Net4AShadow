@@ -4,6 +4,9 @@ using Core.CrossCuttingConcerns.Exceptions;
 using DataAccess.Abstracts;
 using DataAccess.Concretes.EntityFramework;
 using Core.CrossCuttingConcerns.Exceptions.Extensions;
+using System.Reflection;
+using Business;
+using DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +16,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IProductService, ProductManager>();
-builder.Services.AddScoped<IProductRepository, EfProductRepository>();
-//builder.Services.AddScoped<ICategoryService, CategoryManager>();
-//builder.Services.AddScoped<ICategoryRepository, EfCategoryRepository>();
-builder.Services.AddDbContext<BaseDbContext>();
+
+builder.Services.AddBusinessService();
+builder.Services.AddDataAccessService();
+//Assembly
 
 //Singleton-Scoped-Transien -> Lifetime
 //Singleton => Üretilen ba??ml?l?k uygulama aç?k oldu?u sürece tek bir kere newlenir.

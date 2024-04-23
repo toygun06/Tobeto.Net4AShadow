@@ -49,14 +49,14 @@ namespace Core.DataAccess
 
             return data.FirstOrDefault(predicate);
         }
-
+        
         public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate)
         {
             IQueryable<TEntity> data = Context.Set<TEntity>();
 
             return await data.FirstOrDefaultAsync(predicate);
         }
-
+        
         public List<TEntity> GetList(Expression<Func<TEntity, bool>>? predicate)
         {
             IQueryable<TEntity> data = Context.Set<TEntity>();
