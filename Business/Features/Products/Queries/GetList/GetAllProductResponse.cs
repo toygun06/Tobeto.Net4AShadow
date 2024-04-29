@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Features.Products.Dtos
+namespace Business.Features.Products.Queries.GetList
 {
-    public class ListProductResponse
+    public class GetAllProductResponse
     {
-        public int Id {  get; set; }
+        public int Id { get; set; }
         public int Name { get; set; }
     }
-} 
+}

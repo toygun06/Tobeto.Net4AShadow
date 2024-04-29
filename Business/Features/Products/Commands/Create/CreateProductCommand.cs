@@ -23,10 +23,13 @@ namespace Business.Features.Products.Commands.Create
         public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand>
         {
             private readonly IProductRepository _productRepository;
+            private readonly ICategoryService _categoryService;
             private readonly IMapper _mapper;
-            public CreateProductCommandHandler(IProductRepository productRepository)
+            public CreateProductCommandHandler(IProductRepository productRepository, IMapper mapper, ICategoryService categoryService)
             {
                 _productRepository = productRepository;
+                _mapper = mapper;
+                _categoryService = categoryService;
             }
             public async Task Handle(CreateProductCommand request, CancellationToken cancellationToken)
             {
