@@ -33,7 +33,6 @@ namespace Core.Application.Pipelines.Validation
                 throw new ValidationException(errors.Select(e => e.ErrorMessage).ToList());
             TResponse response = await next();
             return response;
-
         }
     }
 }
