@@ -40,6 +40,14 @@ namespace Core.CrossCuttingConcerns.Exceptions
 
                     await context.Response.WriteAsync(JsonSerializer.Serialize(problemDetails));
                 }
+                else if(exception is ValidationException)
+                {
+                    ValidationException validationException = (ValidationException)exception;
+                    ValidationProblemDetails validationProblemDetails = new ValidationProblemDetails
+                        (validationException.Errors.ToList());
+
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(validationProblemDetails));
+                }
                 else
                 {
                     errorMessage = "Bilinmeyen Hata";

@@ -3,12 +3,15 @@ using Business.Abstracts;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using DataAccess.Abstracts;
 using Entities;
+using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ValidationException = Core.CrossCuttingConcerns.Exceptions.Types.ValidationException;
 
 namespace Business.Features.Products.Commands.Create
 {
@@ -33,6 +36,15 @@ namespace Business.Features.Products.Commands.Create
             }
             public async Task Handle(CreateProductCommand request, CancellationToken cancellationToken)
             {
+                IValidator<CreateProductCommand> validator = new CreateProductCommandValidator();
+
+                ValidationResult result = validator.Validate(request);
+
+                if (!result.IsValid)
+                {
+                    throw new ValidationException(result.Errors.Select(i=>i.ErrorMessage).ToList());
+                }
+
                 if (request.UnitPrice < 0)
                     throw new BusinessException("Ürün fiyatı 0'dan küçük olamaz.");
                 Product? productWithSameName = await _productRepository.GetAsync(p => p.Name == request.Name);
