@@ -1,4 +1,4 @@
-using Business.Abstracts;
+﻿using Business.Abstracts;
 using Business.Concretes;
 using Core.CrossCuttingConcerns.Exceptions;
 using DataAccess.Abstracts;
@@ -7,6 +7,7 @@ using Core.CrossCuttingConcerns.Exceptions.Extensions;
 using System.Reflection;
 using Business;
 using DataAccess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,9 +21,22 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddBusinessService();
 builder.Services.AddDataAccessService();
 //Assembly
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        //JWT Configuration
+        //TODO: Gerekli alanları appsettings.json'dan okuyarak burada token optionsları belirle.
+
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+        {
+            //IssuerSigningKey = ""
+        };
+    });
+
 
 //Singleton-Scoped-Transien -> Lifetime
-//Singleton => �retilen ba??ml?l?k uygulama a�?k oldu?u s�rece tek bir kere newlenir.
+//Singleton => Üretilen ba??ml?l?k uygulama aç?k oldu?u sürece tek bir kere newlenir.
 //Her enjeksiyonda o instance kullan?l?r.
 
 //Scoped => (API iste?i) ?stek ba??na 1 instance olu?turur.
@@ -40,6 +54,8 @@ if (app.Environment.IsDevelopment())
 app.ConfigureExceptionMiddlewareExtensions();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
