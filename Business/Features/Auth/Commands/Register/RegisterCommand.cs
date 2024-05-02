@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Utilities.Hashing;
 using DataAccess.Abstracts;
 using Entities;
 using MediatR;
@@ -32,11 +33,12 @@ namespace Business.Features.Auth.Commands.Register
             {
                 User user = _mapper.Map<User>(request);
 
-                using HMACSHA512 hmac = new();
+                byte[] passwordHash, passwordSalt;
 
+                HashingHelper.CreatePasswordHash(request.Password, out passwordHash, out passwordSalt);
 
-                user.PasswordHash = hmac.Key;
-                user.PasswordSalt = hmac.ComputeHash(Encoding.UTF8.GetBytes(request.Password));
+                user.PasswordSalt = passwordSalt;
+                user.PasswordHash = passwordHash;
 
                 await _userRepository.AddAsync(user);
                 
