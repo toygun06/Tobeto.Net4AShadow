@@ -13,6 +13,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using TokenOptions = Core.Utilities.JWT.TokenOptions;
 using Core.Utilities.Encryption;
+using Core.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,11 +24,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+TokenOptions? tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
 builder.Services.AddBusinessService();
 builder.Services.AddDataAccessService();
+builder.Services.AddCoreServices(tokenOptions);
 //Assembly
 
-TokenOptions? tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
